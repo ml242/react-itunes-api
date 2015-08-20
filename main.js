@@ -1,10 +1,24 @@
 'use strict';
 
 var Results = React.createClass({
+
+	filterResults: function(){
+		var listItem = this.props.results.map(function(result, index){
+        	return (
+        		<ul>
+        			<li>{result.artistName}</li>
+        			<li>{result.trackName}</li>
+        			<img src={result.artworkUrl100} />
+    			</ul>)
+    	});
+		return (<div>{listItem}</div>)
+	},
+
 	render: function(){
+		
 		return(
 			<div>
-				{this.props.results}
+				{ this.filterResults() }
 			</div>)
 	}
 });
@@ -36,14 +50,22 @@ var App = React.createClass({
 		
 		console.log("CAT: " + this.state.cat);
 		
+		var self = this;
+
 		var searchResults = $.ajax({
 			dataType: 'jsonp',
-			url: 'https://itunes.apple.com/search?term=' + this.state.text + '&country=us&entity=' + this.state.cat
-		})	
+			url: 'https://itunes.apple.com/search?term=' + this.state.text + '&country=us&entity=' + this.state.cat,
+			success: function(response){
 
-		this.setState({
-			results: this.state.results.concat(searchResults)
-		});
+				self.setState({
+					results: self.state.results.concat(response.results)
+				})
+
+			}
+		})
+
+
+
 	},
 
     render: function(){
