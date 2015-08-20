@@ -15,7 +15,7 @@ var App = React.createClass({
 		return {
 			text: "",
 			results: [],
-			cat: "movie"
+			cat: ""
 		}
 	},
 
@@ -34,7 +34,7 @@ var App = React.createClass({
 
 	searchItunes: function(){
 		
-		console.log(this.state.text);
+		console.log("CAT: " + this.state.cat);
 		
 		var searchResults = $.ajax({
 			dataType: 'jsonp',
@@ -50,9 +50,10 @@ var App = React.createClass({
         return (
             <div>
                 <input type="text" value={this.state.text} onChange={this.onChange}></input>
-                <select onChange={this.handleCatChange}>
-                	<option value="apps">apps</option>
-                	<option value="music">music</option>
+                <select value={this.state.value} onChange={this.handleCatChange}>
+                	<option value="software">apps</option>
+                	<option value="podcast">podcast</option>
+                	<option value="allArtist">music</option>
                 	<option value="movie">movie</option>
                 </select>
                 <input type="submit" value="search" onClick={this.searchItunes}></input>
