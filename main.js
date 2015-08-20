@@ -3,7 +3,9 @@
 var Results = React.createClass({
 	render: function(){
 		return(
-			<div>{this.props.results}</div>)
+			<div>
+				{this.props.results}
+			</div>)
 	}
 });
 
